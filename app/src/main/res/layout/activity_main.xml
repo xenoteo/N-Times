@@ -11,27 +11,19 @@
         android:id="@+id/textRoundsNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:text="@string/rounds_selection"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/roundsNumber"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxRoundsSame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/roundsNumber"
+    <NumberPicker
+        android:id="@+id/roundsNumberPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:width="100dp"
-        android:ems="10"
-        android:hint="@string/rounds_example"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/checkBoxRoundsSame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +33,6 @@
         android:id="@+id/checkBoxRoundsSame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:checked="true"
         android:text="@string/rounds_same"
         android:textSize="16sp"
@@ -49,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roundsNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/textRoundsNumber" />
 
     <Button
         android:id="@+id/button"

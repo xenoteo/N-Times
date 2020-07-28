@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">N Times</string>
-    <string name="rounds_selection">Enter number of rounds in your training</string>
+    <string name="rounds_selection">Choose number of rounds in your training</string>
     <string name="rounds_example">3</string>
     <string name="rounds_same">All rounds have same timing</string>
     <string name="rests_same">All the rests have the same timing</string>
     <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="exercises_number">Number of exercises</string>
+    <string name="exercises_time">Time of one exercise</string>
+    <string name="rest_time">Rest between exercises</string>
+    <string name="min">min</string>
+    <string name="sec">sec</string>
 </resources>
