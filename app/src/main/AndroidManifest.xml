@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NTimes">
-        <activity android:name=".RestActivity"></activity>
+        <activity android:name=".CheckActivity"></activity>
+        <activity android:name=".RestActivity" />
         <activity android:name=".RoundActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

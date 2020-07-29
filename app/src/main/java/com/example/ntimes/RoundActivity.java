@@ -2,13 +2,18 @@ package com.example.ntimes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 public class RoundActivity extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
+    Editor editor;
+
     NumberPicker exercisesNumberPicker;
     NumberPicker exerciseMinPicker;
     NumberPicker exerciseSecPicker;
@@ -20,8 +25,14 @@ public class RoundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_round);
 
+        setSharedPreferences();
         setExercisesNumberPicker();
         setTimePickers();
+    }
+
+    private void setSharedPreferences(){
+        sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     private void setExercisesNumberPicker(){
@@ -33,8 +44,8 @@ public class RoundActivity extends AppCompatActivity {
     private void setTimePickers(){
         exerciseMinPicker = (NumberPicker) findViewById(R.id.exercisesMinPicker);
         exerciseSecPicker = (NumberPicker) findViewById(R.id.exercisesSecPicker);
-        restMinPicker = (NumberPicker) findViewById(R.id.restMinPicker);
-        restSecPicker = (NumberPicker) findViewById(R.id.restSecPicker);
+        restMinPicker = (NumberPicker) findViewById(R.id.roundRestSecPicker);
+        restSecPicker = (NumberPicker) findViewById(R.id.roundRestMinPicker);
 
         exerciseMinPicker.setMaxValue(60);
         exerciseMinPicker.setMinValue(0);
@@ -51,15 +62,15 @@ public class RoundActivity extends AppCompatActivity {
 
     public void next(View v){
         int exercisesNumber = exercisesNumberPicker.getValue();
-        int exerciseTime = exerciseMinPicker.getValue() * 60
-                + exerciseSecPicker.getValue();     // in seconds
+        int exerciseTime = exerciseMinPicker.getValue() * 60 + exerciseSecPicker.getValue();
         int restTime = restMinPicker.getValue() * 60 + restSecPicker.getValue();    // in seconds
-        Intent intent = new Intent(this, RestActivity.class);
-        intent.putExtra(Key.EXERCISES_NUMBER, exercisesNumber);
-        intent.putExtra(Key.EXERCISE_TIME, exerciseTime);
-        intent.putExtra(Key.REST_TIME, restTime);
-        Toast.makeText(getApplicationContext(), exercisesNumber + " exercises", Toast.LENGTH_LONG).show();    // test
-        startActivity(intent);
+
+        editor.putInt(Key.EXERCISES_NUMBER, exercisesNumber);
+        editor.putInt(Key.EXERCISE_TIME, exerciseTime);
+        editor.putInt(Key.EXERCISES_REST_TIME, restTime);
+        editor.apply();
+
+        startActivity(new Intent(this, RestActivity.class));
     }
 
     public void back(View v){

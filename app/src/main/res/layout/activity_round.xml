@@ -9,7 +9,8 @@
     <NumberPicker
         android:id="@+id/exercisesNumberPicker"
         android:layout_width="45dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +19,8 @@
     <NumberPicker
         android:id="@+id/exercisesMinPicker"
         android:layout_width="50dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toStartOf="@+id/exercisesSecPicker"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,35 +29,38 @@
     <NumberPicker
         android:id="@+id/exercisesSecPicker"
         android:layout_width="50dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/exercisesMinPicker"
         app:layout_constraintTop_toBottomOf="@+id/exercisesTimeText" />
 
     <NumberPicker
-        android:id="@+id/restMinPicker"
+        android:id="@+id/roundRestSecPicker"
         android:layout_width="50dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toStartOf="@+id/restSecPicker"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/roundRestMinPicker"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restTimeText" />
 
     <NumberPicker
-        android:id="@+id/restSecPicker"
+        android:id="@+id/roundRestMinPicker"
         android:layout_width="50dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/restMinPicker"
+        app:layout_constraintStart_toEndOf="@+id/roundRestSecPicker"
         app:layout_constraintTop_toBottomOf="@+id/restTimeText" />
 
     <TextView
         android:id="@+id/exercisesNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:text="@string/exercises_number"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -68,7 +73,7 @@
         android:id="@+id/exercisesTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/exercises_time"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -81,7 +86,7 @@
         android:id="@+id/restTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/rest_time"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -127,7 +132,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textView7"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restMinPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/roundRestSecPicker" />
 
     <TextView
         android:id="@+id/textView7"
@@ -140,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/restSecPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/roundRestMinPicker" />
 
     <Button
         android:id="@+id/buttonRoundNext"

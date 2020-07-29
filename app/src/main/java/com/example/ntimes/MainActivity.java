@@ -2,22 +2,32 @@ package com.example.ntimes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    NumberPicker numberPicker;
+    private SharedPreferences sharedPreferences;
+    private Editor editor;
+    private NumberPicker numberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setSharedPreferences();
         setRoundsNumberPicker();
+    }
+
+    private void setSharedPreferences(){
+        sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     private void setRoundsNumberPicker(){
@@ -29,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
     public void next(View v){
         int roundsNumber = numberPicker.getValue();
         boolean roundsSame = ((CheckBox)findViewById(R.id.checkBoxRoundsSame)).isChecked();
-        Intent intent = new Intent(this, RoundActivity.class);
-        intent.putExtra(Key.ROUNDS_NUMBER, roundsNumber);
-        intent.putExtra(Key.ROUNDS_SAME, roundsSame);
-        Toast.makeText(getApplicationContext(), roundsNumber + " rounds", Toast.LENGTH_LONG).show();    // test
-        startActivity(intent);
+        boolean restsSame = ((CheckBox)findViewById(R.id.checkBoxRestsSame)).isChecked();
+
+        editor.putInt(Key.ROUNDS_NUMBER, roundsNumber);
+        editor.putBoolean(Key.ROUNDS_SAME, roundsSame);
+        editor.putBoolean(Key.RESTS_SAME, restsSame);
+
+        editor.apply();
+
+        startActivity(new Intent(this, RoundActivity.class));
     }
 }
