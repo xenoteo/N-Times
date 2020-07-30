@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -23,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSharedPreferences();
         setRoundsNumberPicker();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        numberPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_NUMBER, 0));
     }
 
     private void setSharedPreferences(){

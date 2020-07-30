@@ -41,9 +41,17 @@ public class CheckActivity extends AppCompatActivity {
 
         roundsNumberTextView.setText(String.valueOf(roundsNumber));
         exercisesNumberTextView.setText(String.valueOf(exercisesNumber));
-        exerciseTimeTextView.setText(String.valueOf(exerciseTime));
-        exercisesRestTimeTextView.setText(String.valueOf(exercisesRestTime));
-        roundsRestTimeTextView.setText(String.valueOf(roundsRestTime));
+        exerciseTimeTextView.setText(getTimeString(exerciseTime));
+        exercisesRestTimeTextView.setText(getTimeString(exercisesRestTime));
+        roundsRestTimeTextView.setText(getTimeString(roundsRestTime));
+    }
+
+    private String getTimeString(int time){
+        String timeString = " ";
+        int min = time / 60;
+        if (min != 0) timeString += min + " min ";
+        timeString += time % 60 + " s";
+        return timeString;
     }
 
     private void setNumbers(){

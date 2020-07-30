@@ -30,6 +30,18 @@ public class RoundActivity extends AppCompatActivity {
         setTimePickers();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        exercisesNumberPicker.setValue(sharedPreferences.getInt(Key.EXERCISES_NUMBER, 0));
+        exerciseMinPicker.setValue(sharedPreferences.getInt(Key.EXERCISE_TIME, 0) / 60);
+        exerciseSecPicker.setValue(sharedPreferences.getInt(Key.EXERCISE_TIME, 0) % 60);
+        restMinPicker.setValue(sharedPreferences.getInt(Key.EXERCISES_REST_TIME, 0) / 60);
+        restSecPicker.setValue(sharedPreferences.getInt(Key.EXERCISES_REST_TIME, 0) % 60);
+    }
+
     private void setSharedPreferences(){
         sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

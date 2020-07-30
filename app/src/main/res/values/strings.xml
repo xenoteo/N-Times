@@ -18,6 +18,6 @@
     <string name="rounds">rounds, each has</string>
     <string name="exercises">exercises</string>
     <string name="exercise_lasts">One exercise lasts</string>
-    <string name="rest_between_exercises">Rest between exercises is </string>
-    <string name="rest_between_rounds">Rest between rounds is </string>
+    <string name="rest_between_exercises">Rest between exercises is</string>
+    <string name="rest_between_rounds">Rest between rounds is</string>
 </resources>

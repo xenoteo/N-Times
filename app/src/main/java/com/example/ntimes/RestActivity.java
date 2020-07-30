@@ -25,14 +25,23 @@ public class RestActivity extends AppCompatActivity {
         setTimePickers();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        restMinPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) / 60);
+        restSecPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) % 60);
+
+    }
+
     private void setSharedPreferences(){
         sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
     private void setTimePickers(){
-        restMinPicker = (NumberPicker) findViewById(R.id.roundRestSecPicker);
-        restSecPicker = (NumberPicker) findViewById(R.id.roundRestMinPicker);
+        restSecPicker = (NumberPicker) findViewById(R.id.roundRestSecPicker);
+        restMinPicker = (NumberPicker) findViewById(R.id.roundRestMinPicker);
 
         restMinPicker.setMaxValue(60);
         restMinPicker.setMinValue(0);
