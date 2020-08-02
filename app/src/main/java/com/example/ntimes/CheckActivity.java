@@ -75,6 +75,6 @@ public class CheckActivity extends AppCompatActivity {
     }
 
     public void start(View v){
-        // TODO
+        startActivity(new Intent(this, TimeActivity.class));
     }
 }

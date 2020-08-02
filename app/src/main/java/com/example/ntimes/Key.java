@@ -7,8 +7,6 @@ package com.example.ntimes;
 public class Key {
     public static String SHARED_PREFERENCES = "preferences";
 
-    public static String FIRST_RUN = "firstRun";
-
     public static String ROUNDS_NUMBER = "roundsNumber";
     public static String ROUNDS_SAME = "roundsSame";
     public static String RESTS_SAME = "restsSame";
