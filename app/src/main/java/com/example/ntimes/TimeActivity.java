@@ -3,11 +3,13 @@ package com.example.ntimes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,16 +33,16 @@ public class TimeActivity extends AppCompatActivity {
 
     private int exerciseNumber; // for the same rounds
 
-
     private CountDownTimer currentCountDown;
+    private int currentCountDownId;
     private long remain;
+
+    private final int DELAY_BEFORE_TRAINING = 11; // seconds
     private final List<Integer> times = new ArrayList<>();
+    private int timesSize;
 
     private MediaPlayer startExerciseMusic;
     private MediaPlayer stopExerciseMusic;
-
-    private boolean isStarted = false;
-//    Runn boolean isFinished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class TimeActivity extends AppCompatActivity {
         setSharedPreferences();
         setViews();
         setMusic();
+        setRunningTimers();
     }
 
     private void setSharedPreferences(){
@@ -84,6 +87,7 @@ public class TimeActivity extends AppCompatActivity {
         int exerciseRestTime = sharedPreferences.getInt(Key.EXERCISES_REST_TIME, 0) *  1000;
         int roundRestTime = sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) *  1000;
 
+        times.add(DELAY_BEFORE_TRAINING * 1000);
 
         for (int i = 1; i <= roundsNumber; i++){
             roundDisplay.setText(String.valueOf(i));
@@ -96,17 +100,21 @@ public class TimeActivity extends AppCompatActivity {
         }
 
         times.remove(times.size() - 1);
+        timesSize = times.size();
         startTimer(0);
     }
 
     private void startTimer(int id){
-        if ((id + 1) % (2 * exerciseNumber) == 0) { // if round rest
+        if (id >= timesSize) return;
+        else if (id == 0) // delay before training starts
+            setRoundVisibility(View.INVISIBLE);
+        else if (id % (2 * exerciseNumber) == 0) { // if round rest
             setRoundVisibility(View.INVISIBLE);
         }
         else{
             setRoundVisibility(View.VISIBLE);
-            roundDisplay.setText(String.valueOf((id + 1) / (2 * exerciseNumber) + 1));
-            if (id % 2 == 0) {  // if exercise
+            roundDisplay.setText(String.valueOf(id / (2 * exerciseNumber) + 1));
+            if (id % 2 == 1) {  // if exercise
                 setExerciseVisibility(View.VISIBLE);
                 exerciseDisplay.setText(String.valueOf((id % (2 * exerciseNumber)) / 2 + 1));
             }
@@ -136,7 +144,11 @@ public class TimeActivity extends AppCompatActivity {
         return new CountDownTimer(millisInFuture, 1000) {
             @Override
             public void onTick(long l) {
-                if (id % 2 == 0) // if exercise
+                currentCountDown = this;
+                currentCountDownId = id;
+                if (id == 0)  // delay before training starts
+                    remainingTextView.setText(R.string.before_training);
+                else if (id % 2 == 1) // if exercise
                     remainingTextView.setText(R.string.exercise_remain);
                 else
                     remainingTextView.setText(R.string.rest_remain);
@@ -146,7 +158,13 @@ public class TimeActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                if (id % 2 == 0)  // if exercise
+                if (id == timesSize - 1){ // if the last one
+                    setRoundVisibility(View.INVISIBLE);
+                    remainingTextView.setText(R.string.finish);
+                    remainingDisplay.setText("");
+                    setFinishedButton();
+                }
+                if (id % 2 == 1)  // if exercise
                     stopExerciseMusic.start();
                 else
                     startExerciseMusic.start();
@@ -155,8 +173,16 @@ public class TimeActivity extends AppCompatActivity {
         };
     }
 
+    private void setFinishedButton(){
+        String oneMoreTimeColor = "#FF9800";
+        timeButton.setBackgroundColor(Color.parseColor(oneMoreTimeColor));
+        timeButton.setText(R.string.again);
+    }
 
-
+    private void pauseCountdown(){
+        currentCountDown.cancel();
+        currentCountDown = makeTimer((int)remain, currentCountDownId);
+    }
 
     public void handleTimeButtonClick(View v){
         String pauseColor = "#FF5722";
@@ -164,18 +190,7 @@ public class TimeActivity extends AppCompatActivity {
 
         String value = timeButton.getText().toString();
 
-        if (!isStarted) {
-            isStarted = true;
-            timeButton.setText(R.string.pause);
-            timeButton.setBackgroundColor(Color.parseColor(pauseColor));
-            setRunningTimers();
-        }
-        /*
-        else if (isFinished) {
-            // todo
-        }
-
-        else if (value.equals(getString(R.string.resume))){
+        if (value.equals(getString(R.string.resume))){
             timeButton.setText(R.string.pause);
             timeButton.setBackgroundColor(Color.parseColor(pauseColor));
             currentCountDown.start();
@@ -183,11 +198,10 @@ public class TimeActivity extends AppCompatActivity {
         else if (value.equals(getString(R.string.pause))){
             timeButton.setText(R.string.resume);
             timeButton.setBackgroundColor(Color.parseColor(resumeColor));
-            currentCountDown.cancel();
-            currentCountDown = makeTimer((int) remain);
+            pauseCountdown();
         }
-
-         */
+        else if(value.equals(getString(R.string.again))){
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
-
 }

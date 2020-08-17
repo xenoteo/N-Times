@@ -36,7 +36,10 @@
     <!--    timer-->
     <string name="round">Round</string>
     <string name="exercise">Exercise</string>
+    <string name="before_training">s to start</string>
     <string name="exercise_remain">s of work remaining</string>
     <string name="rest_remain">s of rest remaining</string>
+    <string name="finish">Good job!</string>
+    <string name="again">One more time</string>
     <string name="default_num">0</string>
 </resources>
