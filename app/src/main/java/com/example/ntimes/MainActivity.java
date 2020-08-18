@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
@@ -15,7 +16,10 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private Editor editor;
+
     private NumberPicker numberPicker;
+    private CheckBox roundsSameCheckBox;
+    private CheckBox restsSameCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSharedPreferences();
         setRoundsNumberPicker();
+        setCheckBoxes();
     }
 
     @Override
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         numberPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_NUMBER, 0));
+        restsSameCheckBox.setChecked(sharedPreferences.getBoolean(Key.RESTS_SAME, true));
+        roundsSameCheckBox.setChecked(sharedPreferences.getBoolean(Key.ROUNDS_SAME, true));
     }
 
     private void setSharedPreferences(){
@@ -39,15 +46,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRoundsNumberPicker(){
-        numberPicker = (NumberPicker)findViewById(R.id.roundsNumberPicker);
+        numberPicker = findViewById(R.id.roundsNumberPicker);
         numberPicker.setMaxValue(20);
         numberPicker.setMinValue(1);
     }
 
+    private void setCheckBoxes(){
+        roundsSameCheckBox = findViewById(R.id.checkBoxRoundsSame);
+        restsSameCheckBox = findViewById(R.id.checkBoxRestsSame);
+    }
+
     public void next(View v){
         int roundsNumber = numberPicker.getValue();
-        boolean roundsSame = ((CheckBox)findViewById(R.id.checkBoxRoundsSame)).isChecked();
-        boolean restsSame = ((CheckBox)findViewById(R.id.checkBoxRestsSame)).isChecked();
+        boolean roundsSame = roundsSameCheckBox.isChecked();
+        boolean restsSame = restsSameCheckBox.isChecked();
 
         editor.putInt(Key.ROUNDS_NUMBER, roundsNumber);
         editor.putBoolean(Key.ROUNDS_SAME, roundsSame);
@@ -55,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         editor.apply();
 
-        startActivity(new Intent(this, RoundActivity.class));
+        Intent intent = new Intent(this, RoundActivity.class);
+        if (!roundsSame) intent.putExtra(Key.CURRENT_ROUND, 1);
+
+        startActivity(intent);
     }
 }
