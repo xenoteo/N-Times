@@ -34,11 +34,11 @@
     <string name="rest_between_exercises">Rests between exercises are</string>
     <string name="rest_between_rounds">Rests between rounds are</string>
 
-    <string name="round_no">Round <br/>no</string>
-    <string name="number_of_exercises">Number of <br/>exercises</string>
-    <string name="exercise_time">Exercise <br/>time</string>
-    <string name="rest_time_check">Rest <br/>time</string>
-    <string name="rest_after_round">Rest <br/>after round</string>
+    <string name="round_no">Round <br />no</string>
+    <string name="number_of_exercises">Number of <br />exercises</string>
+    <string name="exercise_time">Exercise <br />time</string>
+    <string name="rest_time_check">Rest <br />time</string>
+    <string name="rest_after_round">Rest <br />after round</string>
 
     <!--    timer-->
     <string name="round">Round</string>
