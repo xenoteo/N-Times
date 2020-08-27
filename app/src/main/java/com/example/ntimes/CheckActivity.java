@@ -133,7 +133,7 @@ public class CheckActivity extends AppCompatActivity {
      */
 
     public void edit(View v){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, RoundNumberActivity.class));
     }
 
     public void start(View v){

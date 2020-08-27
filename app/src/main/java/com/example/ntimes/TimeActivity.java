@@ -175,8 +175,13 @@ public class TimeActivity extends AppCompatActivity{
             pauseCountdown();
         }
         else if(value.equals(getString(R.string.again))){
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, RoundNumberActivity.class));
         }
+    }
+
+    public void back(View v){
+        pauseCountdown();
+        startActivity(new Intent(this, CheckActivity.class));
     }
 
     private class SameRoundsTimer implements Timer {
@@ -304,5 +309,6 @@ public class TimeActivity extends AppCompatActivity{
             }
             makeTimer(times.get(id), id).start();
         }
+
     }
 }

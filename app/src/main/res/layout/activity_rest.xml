@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="190dp"
         android:text="@string/round_rest_tim"
         android:textColor="#000000"
         android:textSize="16sp"

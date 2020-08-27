@@ -6,6 +6,7 @@
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
+    <string name="stop">Stop and back</string>
 
     <!--    main activity-->
     <string name="app_name">N Times</string>

@@ -7,13 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class RoundNumberActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private Editor editor;
 
@@ -21,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox roundsSameCheckBox;
     private CheckBox restsSameCheckBox;
 
+    private boolean roundsSame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_round_number);
 
         setSharedPreferences();
         setRoundsNumberPicker();
@@ -57,8 +57,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void next(View v){
+        setData();
+
+        Intent intent = new Intent(this, RoundActivity.class);
+        if (!roundsSame) intent.putExtra(Key.CURRENT_ROUND, 1);
+
+        startActivity(intent);
+    }
+
+    private void setData(){
         int roundsNumber = numberPicker.getValue();
-        boolean roundsSame = roundsSameCheckBox.isChecked();
+        roundsSame = roundsSameCheckBox.isChecked();
         boolean restsSame = restsSameCheckBox.isChecked();
 
         editor.putInt(Key.ROUNDS_NUMBER, roundsNumber);
@@ -66,10 +75,5 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean(Key.RESTS_SAME, restsSame);
 
         editor.apply();
-
-        Intent intent = new Intent(this, RoundActivity.class);
-        if (!roundsSame) intent.putExtra(Key.CURRENT_ROUND, 1);
-
-        startActivity(intent);
     }
 }

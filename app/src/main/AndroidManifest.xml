@@ -13,7 +13,7 @@
         <activity android:name=".CheckActivity" />
         <activity android:name=".RestActivity" />
         <activity android:name=".RoundActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".RoundNumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
