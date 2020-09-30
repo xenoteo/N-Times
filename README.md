@@ -1,4 +1,4 @@
-<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=50vh/></a>
+<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=60vh/></a>  
 A simple android application for organizing training time.
   
 ## About
