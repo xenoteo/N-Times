@@ -1,4 +1,4 @@
-<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=60vh/></a>  
+<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=70vh/></a>  
 A simple android application for organizing training time.
   
 ## About
@@ -23,7 +23,10 @@ You can customize a training according to the next points:
 - Time of rests between rounds
   
 ## Screenshots
-TODO
+<a href="https://imgur.com/rjzX6rj"><img src="https://i.imgur.com/rjzX6rj.png" title="source: imgur.com" /></a>
+<a href="https://imgur.com/YxVFwev"><img src="https://i.imgur.com/YxVFwev.png" title="source: imgur.com" /></a>
+<a href="https://imgur.com/dnaXdFh"><img src="https://i.imgur.com/dnaXdFh.png" title="source: imgur.com" /></a>
+<a href="https://imgur.com/e4MDgc1"><img src="https://i.imgur.com/e4MDgc1.png" title="source: imgur.com" /></a>
 
 ## Installation 
 TODO
