@@ -29,6 +29,7 @@ public class TimeActivity extends AppCompatActivity{
     private TextView remainingTextView;
 
     private Button timeButton;
+    private Button stopAndBackButton;
 
     private MediaPlayer startExerciseMusic;
     private MediaPlayer stopExerciseMusic;
@@ -66,6 +67,7 @@ public class TimeActivity extends AppCompatActivity{
         remainingDisplay = findViewById(R.id.remainingDisplay);
         remainingTextView = findViewById(R.id.remaining);
         timeButton = findViewById(R.id.timerButton);
+        stopAndBackButton = findViewById(R.id.stopAndBackButton);
     }
 
     private void setMusic(){
@@ -125,6 +127,14 @@ public class TimeActivity extends AppCompatActivity{
         currentCountDown = makeTimer((int)remain, currentCountDownId);
     }
 
+    private String getTimeString(long s){
+        long min = s / 60;
+        if (min == 0)
+            return s + " s";
+        else
+            return min + " min " + (s % 60) + " s";
+    }
+
     private CountDownTimer makeTimer(int millisInFuture, int id) {
         return new CountDownTimer(millisInFuture, 1000) {
             @Override
@@ -138,7 +148,7 @@ public class TimeActivity extends AppCompatActivity{
                 else
                     remainingTextView.setText(R.string.rest_remain);
 
-                remainingDisplay.setText(String.valueOf(l / 1000));
+                remainingDisplay.setText(getTimeString(l / 1000));
                 remain = l;
             }
             @Override
@@ -148,6 +158,7 @@ public class TimeActivity extends AppCompatActivity{
                     remainingTextView.setText(R.string.finish);
                     remainingDisplay.setText("");
                     setFinishedButton();
+                    stopAndBackButton.setVisibility(View.INVISIBLE);
                 }
                 if (id % 2 == 1)  // if exercise
                     stopExerciseMusic.start();

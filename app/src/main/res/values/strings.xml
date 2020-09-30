@@ -6,7 +6,7 @@
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
-    <string name="stop">Stop and back</string>
+    <string name="stop">Stop &amp; back</string>
 
     <!--    main activity-->
     <string name="app_name">N Times</string>
@@ -44,9 +44,9 @@
     <!--    timer-->
     <string name="round">Round</string>
     <string name="exercise">Exercise</string>
-    <string name="before_training">s to start</string>
-    <string name="exercise_remain">s of work remaining</string>
-    <string name="rest_remain">s of rest remaining</string>
+    <string name="before_training">to start</string>
+    <string name="exercise_remain">of work remaining</string>
+    <string name="rest_remain">of rest remaining</string>
     <string name="finish">Good job!</string>
     <string name="again">One more time</string>
     <string name="default_num">0</string>
