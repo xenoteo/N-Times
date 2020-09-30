@@ -1,5 +1,5 @@
 # N Times
-<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=3vh aligh="left"/></a>
+<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=20vh aligh="left"/></a>
 A simple android application for organizing training time.
   
 ## About
