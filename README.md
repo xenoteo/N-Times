@@ -23,10 +23,10 @@ You can customize a training according to the next points:
 - Time of rests between rounds
   
 ## Screenshots
-<a href="https://imgur.com/rjzX6rj"><img src="https://i.imgur.com/rjzX6rj.png" title="source: imgur.com" /></a>
-<a href="https://imgur.com/YxVFwev"><img src="https://i.imgur.com/YxVFwev.png" title="source: imgur.com" /></a>
-<a href="https://imgur.com/dnaXdFh"><img src="https://i.imgur.com/dnaXdFh.png" title="source: imgur.com" /></a>
-<a href="https://imgur.com/e4MDgc1"><img src="https://i.imgur.com/e4MDgc1.png" title="source: imgur.com" /></a>
+<a href="https://imgur.com/rjzX6rj"><img src="https://i.imgur.com/rjzX6rj.png" title="source: imgur.com" width=20%/></a>
+<a href="https://imgur.com/HGcNCjX"><img src="https://i.imgur.com/HGcNCjX.png" title="source: imgur.com" width=20%/></a>
+<a href="https://imgur.com/EYqRpEV"><img src="https://i.imgur.com/EYqRpEV.png" title="source: imgur.com" width=20%/></a>
+<a href="https://imgur.com/e4MDgc1"><img src="https://i.imgur.com/e4MDgc1.png" title="source: imgur.com" width=20%/></a>
 
 ## Installation 
 TODO
