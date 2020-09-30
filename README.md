@@ -11,6 +11,9 @@ Maybe 4 rounds with 6 exercises, where each one lasts 50 s and rests between the
 You can even have different timing in different rounds. For example you can start with 3 rounds of 6 exercises of 45 s with the rests between them of 15 s, and finish with 2 tabatas. You can also customise rests between rounds (for example if you want the first rests to be equal 30 s and the following 1 min).
   
 One customization solves all time problems.
+
+## Installation 
+You can download APK file [here](https://github.com/xenoteo/N-Times/blob/master/app/out/app-debug.apk).
   
 ## Features
 You can customize a training according to the next points:
@@ -28,8 +31,8 @@ You can customize a training according to the next points:
 <a href="https://imgur.com/h35PTgU"><img src="https://i.imgur.com/h35PTgU.png" title="source: imgur.com" width=24%/></a>
 <a href="https://imgur.com/3NSGeys"><img src="https://i.imgur.com/3NSGeys.png" title="source: imgur.com" width=24%/></a>
 
-## Installation 
-TODO
+## Permissions
+No extra permissions required.
 
 ## Tech used
 Just Java and Android.
