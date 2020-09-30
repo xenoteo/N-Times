@@ -1,6 +1,6 @@
 # N Times
-<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=20vh aligh="left"/></a>
-A simple android application for organizing training time.
+<a href="https://imgur.com/4Ym0Aby"><img src="https://i.imgur.com/4Ym0Aby.png" title="source: imgur.com" height=25vh aligh="left"/></a>
+<p> is a simple android application for organizing training time. </p>
   
 ## About
 With the app you can customize a training in any way you want. You need to do it just once without any control of time and changing timer every time you change the length of an exercise. One simple customization of the training and you forget about time after clicking one button!
