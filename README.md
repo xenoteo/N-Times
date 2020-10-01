@@ -2,7 +2,7 @@
 A simple android application for organizing training time.
   
 ## About
-With the app you can customize a training in any way you want. You need to do it just once without any control of time and changing timer every time you change the length of an exercise. One simple customization of the training and you forget about time after clicking one button!
+With the app you can customize a training in any way you want. You have no need to control the time and change timer every time you change the length of an exercise. One simple customization of the training and you forget about time after clicking one button.
   
 10 tabatas with 1 min rest between them? OK, you can choose 10 rounds with 4 exercises of 20 s, rest between exercises of 10 s and rest between rounds of 1 min.
   
