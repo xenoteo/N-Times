@@ -79,6 +79,34 @@ public class RoundActivity extends ActivitySettingUpBasicDataFromPreferences {
         restSecPicker.setMinValue(0);
     }
 
+    private void setUpCurrentRound(){
+        currentRound = getIntent().getIntExtra(Key.CURRENT_ROUND, 0);
+        currentRoundString = currentRound == 0 ? "" : Integer.toString(currentRound);
+    }
+
+    private void setUpRoundTextViews(){
+        roundText = findViewById(R.id.roundNumberTextView);
+        roundDisplay = findViewById(R.id.roundNumberDisplay);
+    }
+
+    public void setUpHeader(){
+        setUpRoundTextViews();
+
+        if (roundsSame) {
+            setTextViewsVisibility(View.INVISIBLE);
+        }
+        else {
+            setTextViewsVisibility(View.VISIBLE);
+            setUpCurrentRound();
+            roundDisplay.setText(currentRoundString);
+        }
+    }
+
+    private void setTextViewsVisibility(int visibility){
+        roundText.setVisibility(visibility);
+        roundDisplay.setVisibility(visibility);
+    }
+
     public void next(View v){
         int exercisesNumber = exercisesNumberPicker.getValue();
         int exerciseTime = exerciseMinPicker.getValue() * 60 + exerciseSecPicker.getValue();
@@ -103,40 +131,6 @@ public class RoundActivity extends ActivitySettingUpBasicDataFromPreferences {
     }
 
     public void back(View v){
-        if (roundsSame || currentRound == 1)
-            startActivity(new Intent(this, RoundNumberActivity.class));
-        else {
-            Intent intent = new Intent(this, RoundActivity.class);
-            intent.putExtra(Key.CURRENT_ROUND, currentRound - 1);
-            startActivity(intent);
-        }
-    }
-
-    public void setUpHeader(){
-        setUpRoundTextViews();
-
-        if (roundsSame) {
-            setTextViewsVisibility(View.INVISIBLE);
-        }
-        else {
-            setTextViewsVisibility(View.VISIBLE);
-            setUpCurrentRound();
-            roundDisplay.setText(currentRoundString);
-        }
-    }
-
-    private void setUpRoundTextViews(){
-        roundText = findViewById(R.id.roundNumberTextView);
-        roundDisplay = findViewById(R.id.roundNumberDisplay);
-    }
-
-    private void setTextViewsVisibility(int visibility){
-        roundText.setVisibility(visibility);
-        roundDisplay.setVisibility(visibility);
-    }
-
-    private void setUpCurrentRound(){
-        currentRound = getIntent().getIntExtra(Key.CURRENT_ROUND, 0);
-        currentRoundString = currentRound == 0 ? "" : Integer.toString(currentRound);
+        super.onBackPressed();
     }
 }

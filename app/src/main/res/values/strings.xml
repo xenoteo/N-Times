@@ -2,7 +2,7 @@
     <!--    buttons-->
     <string name="next">Next</string>
     <string name="back">Back</string>
-    <string name="edit">Edit</string>
+    <string name="reset">Reset</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>

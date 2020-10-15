@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.example.ntimes.abstractActivities.ActivityWithPreferences;
 import com.example.ntimes.Key;
 import com.example.ntimes.R;
-import com.example.ntimes.mainActivities.CheckActivity;
 import com.example.ntimes.mainActivities.RoundNumberActivity;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class TimeActivity extends ActivityWithPreferences {
 
     private Button timeButton;
     private Button stopAndBackButton;
-    private ButtonState buttonState;
+    private TimeButtonState buttonState;
 
     private MediaPlayer startExerciseMusic;
     private MediaPlayer stopExerciseMusic;
@@ -66,7 +65,7 @@ public class TimeActivity extends ActivityWithPreferences {
         remainingTextView = findViewById(R.id.remaining);
         timeButton = findViewById(R.id.timerButton);
         stopAndBackButton = findViewById(R.id.stopAndBackButton);
-        buttonState = ButtonState.PAUSE;
+        buttonState = TimeButtonState.PAUSE;
     }
 
     private void setUpMusic(){
@@ -81,7 +80,7 @@ public class TimeActivity extends ActivityWithPreferences {
         else
             timer = new DifferentRoundTimer();
         timer.fillTimes();
-        timer.startTimer(0);
+        timer.updateScreenAndStartTimer(0);
     }
 
     private void setUpRoundsNumber(){
@@ -129,23 +128,19 @@ public class TimeActivity extends ActivityWithPreferences {
         currentCountDown = makeTimer((int) timeRemaining, currentCountDownId);
     }
 
+    private void setUpFinishScreen(){
+        setRoundVisibility(View.INVISIBLE);
+        remainingTextView.setText(R.string.finish);
+        remainingDisplay.setText("");
+        setUpFinishButton();
+        stopAndBackButton.setVisibility(View.INVISIBLE);
+    }
+
     @SuppressLint("ResourceAsColor")
-    public void handleTimeButtonClick(View v){
-        switch (buttonState){
-            case RESUME:
-                buttonState = ButtonState.PAUSE;
-                timeButton.setText(R.string.pause);
-                timeButton.setBackgroundColor(R.color.pause);
-                currentCountDown.start();
-                break;
-            case PAUSE:
-                buttonState = ButtonState.RESUME;
-                timeButton.setText(R.string.resume);
-                timeButton.setBackgroundColor(R.color.resume);
-                pauseCountdown();
-            case ONE_MORE_TIME:
-                startActivity(new Intent(this, RoundNumberActivity.class));
-        }
+    private void setUpFinishButton(){
+        buttonState = TimeButtonState.ONE_MORE_TIME;
+        timeButton.setBackgroundColor(R.color.one_more_time);
+        timeButton.setText(R.string.again);
     }
 
     private CountDownTimer makeTimer(int millisInFuture, int id) {
@@ -173,30 +168,36 @@ public class TimeActivity extends ActivityWithPreferences {
                     stopExerciseMusic.start();
                 else
                     startExerciseMusic.start();
-                timer.startTimer(id + 1);
+                timer.updateScreenAndStartTimer(id + 1);
             }
         };
     }
 
-    private void setUpFinishScreen(){
-        setRoundVisibility(View.INVISIBLE);
-        remainingTextView.setText(R.string.finish);
-        remainingDisplay.setText("");
-        setUpFinishButton();
-        stopAndBackButton.setVisibility(View.INVISIBLE);
-    }
-
     @SuppressLint("ResourceAsColor")
-    private void setUpFinishButton(){
-        buttonState = ButtonState.ONE_MORE_TIME;
-        timeButton.setBackgroundColor(R.color.one_more_time);
-        timeButton.setText(R.string.again);
+    public void handleTimeButtonClick(View v){
+        switch (buttonState){
+            case RESUME:
+                buttonState = TimeButtonState.PAUSE;
+                timeButton.setText(R.string.pause);
+                timeButton.setBackgroundColor(R.color.pause);
+                currentCountDown.start();
+                break;
+            case PAUSE:
+                buttonState = TimeButtonState.RESUME;
+                timeButton.setText(R.string.resume);
+                timeButton.setBackgroundColor(R.color.resume);
+                pauseCountdown();
+            case ONE_MORE_TIME:
+                startActivity(new Intent(this, RoundNumberActivity.class));
+        }
     }
 
     public void back(View v){
         pauseCountdown();
-        startActivity(new Intent(this, CheckActivity.class));
+        super.onBackPressed();
     }
+
+
 
     private class SameRoundsTimer implements Timer {
         private int exerciseNumber;
@@ -229,7 +230,7 @@ public class TimeActivity extends ActivityWithPreferences {
         }
 
         @Override
-        public void startTimer(int id) {
+        public void updateScreenAndStartTimer(int id) {
             if (id >= timesSize) return;
             else if (id == 0)                           // delay before training starts
                 setRoundVisibility(View.INVISIBLE);
@@ -298,7 +299,7 @@ public class TimeActivity extends ActivityWithPreferences {
         }
 
         @Override
-        public void startTimer(int id) {
+        public void updateScreenAndStartTimer(int id) {
             if (id >= timesSize) return;
             else if (id == 0)                       // delay before training starts
                 setRoundVisibility(View.INVISIBLE);

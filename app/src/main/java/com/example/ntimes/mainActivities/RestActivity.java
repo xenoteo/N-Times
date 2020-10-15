@@ -29,7 +29,7 @@ public class RestActivity extends ActivitySettingUpBasicDataFromPreferences {
         setUpSharedPreferences();
         setUpTimePickers();
         setUpDataFromPreferences();
-        setHeader();
+        setUpHeader();
     }
 
     @Override
@@ -55,6 +55,34 @@ public class RestActivity extends ActivitySettingUpBasicDataFromPreferences {
         restSecPicker.setMinValue(0);
     }
 
+    private void setUpCurrentRest(){
+        currentRest = getIntent().getIntExtra(Key.CURRENT_REST, 0);
+        currentRestString = currentRest == 0 ? "" : Integer.toString(currentRest);
+    }
+
+    private void setUpRestTextViews(){
+        restNumberText = findViewById(R.id.restNumberTextView);
+        restNumberDisplay = findViewById(R.id.restNumberDisplay);
+    }
+
+    private void setUpHeader(){
+        setUpRestTextViews();
+
+        if (restsSame || roundsNumber == 2) {
+            setTextViewsVisibility(View.INVISIBLE);
+        }
+        else {
+            setTextViewsVisibility(View.VISIBLE);
+            setUpCurrentRest();
+            restNumberDisplay.setText(currentRestString);
+        }
+    }
+
+    private void setTextViewsVisibility(int visibility){
+        restNumberText.setVisibility(visibility);
+        restNumberDisplay.setVisibility(visibility);
+    }
+
     public void next(View v){
         int restTime = restMinPicker.getValue() * 60 + restSecPicker.getValue();    // in seconds
 
@@ -71,47 +99,6 @@ public class RestActivity extends ActivitySettingUpBasicDataFromPreferences {
     }
 
     public void back(View v){
-        if (restsSame || currentRest == 1){
-            if (roundsSame)
-                startActivity(new Intent(this, RoundActivity.class));
-            else {
-                Intent intent = new Intent(this, RoundActivity.class);
-                intent.putExtra(Key.CURRENT_ROUND, roundsNumber);
-                startActivity(intent);
-            }
-        }
-        else {
-            Intent intent = new Intent(this, RestActivity.class);
-            intent.putExtra(Key.CURRENT_REST, currentRest - 1);
-            startActivity(intent);
-        }
-    }
-
-    private void setUpCurrentRest(){
-        currentRest = getIntent().getIntExtra(Key.CURRENT_REST, 0);
-        currentRestString = currentRest == 0 ? "" : Integer.toString(currentRest);
-    }
-
-    private void setHeader(){
-        setUpRestTextViews();
-
-        if (restsSame || roundsNumber == 2) {
-            setTextViewsVisibility(View.INVISIBLE);
-        }
-        else {
-            setTextViewsVisibility(View.VISIBLE);
-            setUpCurrentRest();
-            restNumberDisplay.setText(currentRestString);
-        }
-    }
-
-    private void setUpRestTextViews(){
-        restNumberText = findViewById(R.id.restNumberTextView);
-        restNumberDisplay = findViewById(R.id.restNumberDisplay);
-    }
-
-    private void setTextViewsVisibility(int visibility){
-        restNumberText.setVisibility(visibility);
-        restNumberDisplay.setVisibility(visibility);
+        super.onBackPressed();
     }
 }

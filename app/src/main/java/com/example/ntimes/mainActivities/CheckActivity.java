@@ -17,9 +17,12 @@ public class CheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check);
     }
 
-    public void edit(View v){   // TODO rename reset, add back
-
+    public void reset(View v){
         startActivity(new Intent(this, RoundNumberActivity.class));
+    }
+
+    public void back(View v){
+        super.onBackPressed();
     }
 
     public void start(View v){
