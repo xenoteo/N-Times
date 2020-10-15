@@ -1,38 +1,34 @@
-package com.example.ntimes;
+package com.example.ntimes.mainActivities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-public class RestActivity extends AppCompatActivity {
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+import com.example.ntimes.abstractActivities.ActivitySettingUpBasicDataFromPreferences;
+import com.example.ntimes.Key;
+import com.example.ntimes.R;
+
+public class RestActivity extends ActivitySettingUpBasicDataFromPreferences {
 
     private NumberPicker restMinPicker;
     private NumberPicker restSecPicker;
 
-    private TextView restText;
-    private TextView restDisplay;
+    private TextView restNumberText;
+    private TextView restNumberDisplay;
 
-    private boolean roundsSame;
-    private boolean restsSame;
     private int currentRest;
-    private int roundsNumber;
+    private String currentRestString;   // empty string if rests are the same
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rest);
 
-        setSharedPreferences();
-        setTimePickers();
-        setData();
+        setUpSharedPreferences();
+        setUpTimePickers();
+        setUpDataFromPreferences();
         setHeader();
     }
 
@@ -40,26 +36,15 @@ public class RestActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setData();
-        if (restsSame){
-            restMinPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) / 60);
-            restSecPicker.setValue(sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) % 60);
-        }
-        else {
-            setCurrentRest();
-            restMinPicker.setValue(sharedPreferences
-                    .getInt(Key.ROUNDS_REST_TIME + currentRest, 0) / 60);
-            restSecPicker.setValue(sharedPreferences
-                    .getInt(Key.ROUNDS_REST_TIME + currentRest, 0) % 60);
-        }
+        setUpDataFromPreferences();
+        setUpCurrentRest();
+        restMinPicker.setValue(preferences
+                .getInt(Key.ROUNDS_REST_TIME + currentRestString, 0) / 60);
+        restSecPicker.setValue(preferences
+                .getInt(Key.ROUNDS_REST_TIME + currentRestString, 0) % 60);
     }
 
-    private void setSharedPreferences(){
-        sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-    }
-
-    private void setTimePickers(){
+    private void setUpTimePickers(){
         restSecPicker = findViewById(R.id.roundRestSecPicker);
         restMinPicker = findViewById(R.id.roundRestMinPicker);
 
@@ -73,10 +58,7 @@ public class RestActivity extends AppCompatActivity {
     public void next(View v){
         int restTime = restMinPicker.getValue() * 60 + restSecPicker.getValue();    // in seconds
 
-        if (restsSame)
-            editor.putInt(Key.ROUNDS_REST_TIME, restTime);
-        else
-            editor.putInt(Key.ROUNDS_REST_TIME + currentRest, restTime);
+        editor.putInt(Key.ROUNDS_REST_TIME + currentRestString, restTime);
         editor.apply();
 
         if (restsSame || currentRest == (roundsNumber - 1))
@@ -105,36 +87,31 @@ public class RestActivity extends AppCompatActivity {
         }
     }
 
-    private void setData(){
-        roundsSame = sharedPreferences.getBoolean(Key.ROUNDS_SAME, true);
-        roundsNumber = sharedPreferences.getInt(Key.ROUNDS_NUMBER, 0);
-        restsSame = sharedPreferences.getBoolean(Key.RESTS_SAME, true);
-    }
-
-    private void setCurrentRest(){
+    private void setUpCurrentRest(){
         currentRest = getIntent().getIntExtra(Key.CURRENT_REST, 0);
+        currentRestString = currentRest == 0 ? "" : Integer.toString(currentRest);
     }
 
     private void setHeader(){
-        setRestTextViews();
+        setUpRestTextViews();
 
         if (restsSame || roundsNumber == 2) {
             setTextViewsVisibility(View.INVISIBLE);
         }
         else {
             setTextViewsVisibility(View.VISIBLE);
-            setCurrentRest();
-            restDisplay.setText(String.valueOf(currentRest));
+            setUpCurrentRest();
+            restNumberDisplay.setText(currentRestString);
         }
     }
 
-    private void setRestTextViews(){
-        restText = findViewById(R.id.restNumberTextView);
-        restDisplay = findViewById(R.id.restNumberDisplay);
+    private void setUpRestTextViews(){
+        restNumberText = findViewById(R.id.restNumberTextView);
+        restNumberDisplay = findViewById(R.id.restNumberDisplay);
     }
 
     private void setTextViewsVisibility(int visibility){
-        restText.setVisibility(visibility);
-        restDisplay.setVisibility(visibility);
+        restNumberText.setVisibility(visibility);
+        restNumberDisplay.setVisibility(visibility);
     }
 }

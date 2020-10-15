@@ -1,11 +1,7 @@
-package com.example.ntimes;
+package com.example.ntimes.mainActivities.timeActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,11 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.ntimes.abstractActivities.ActivityWithPreferences;
+import com.example.ntimes.Key;
+import com.example.ntimes.R;
+import com.example.ntimes.mainActivities.CheckActivity;
+import com.example.ntimes.mainActivities.RoundNumberActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeActivity extends AppCompatActivity{
-    private SharedPreferences sharedPreferences;
+public class TimeActivity extends ActivityWithPreferences {
 
     private TextView roundTextView;
     private TextView roundDisplay;
@@ -30,13 +31,14 @@ public class TimeActivity extends AppCompatActivity{
 
     private Button timeButton;
     private Button stopAndBackButton;
+    private ButtonState buttonState;
 
     private MediaPlayer startExerciseMusic;
     private MediaPlayer stopExerciseMusic;
 
     private CountDownTimer currentCountDown;
     private int currentCountDownId;
-    private long remain;
+    private long timeRemaining;
 
     private int roundsNumber;
     private Timer timer;
@@ -49,17 +51,13 @@ public class TimeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time);
 
-        setSharedPreferences();
-        setViews();
-        setMusic();
-        setTimer();
+        setUpSharedPreferences();
+        setUpViews();
+        setUpMusic();
+        setUpAndStartTimer();
     }
 
-    private void setSharedPreferences(){
-        sharedPreferences = getSharedPreferences(Key.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-    }
-
-    private void setViews(){
+    private void setUpViews(){
         roundTextView = findViewById(R.id.textRound);
         roundDisplay = findViewById(R.id.roundDisplay);
         exerciseTextView = findViewById(R.id.textExercise);
@@ -68,24 +66,50 @@ public class TimeActivity extends AppCompatActivity{
         remainingTextView = findViewById(R.id.remaining);
         timeButton = findViewById(R.id.timerButton);
         stopAndBackButton = findViewById(R.id.stopAndBackButton);
+        buttonState = ButtonState.PAUSE;
     }
 
-    private void setMusic(){
+    private void setUpMusic(){
         startExerciseMusic = MediaPlayer.create(this, R.raw.start);
         stopExerciseMusic = MediaPlayer.create(this, R.raw.stop);
     }
 
-    private void setTimer(){
-        boolean roundsSame = sharedPreferences.getBoolean(Key.ROUNDS_SAME, true);
+    private void setUpAndStartTimer(){
+        boolean roundsSame = preferences.getBoolean(Key.ROUNDS_SAME, true);
         if (roundsSame)
             timer = new SameRoundsTimer();
         else
             timer = new DifferentRoundTimer();
         timer.fillTimes();
+        timer.startTimer(0);
     }
 
-    private void setRoundsNumber(){
-        roundsNumber = sharedPreferences.getInt(Key.ROUNDS_NUMBER, 0);
+    private void setUpRoundsNumber(){
+        roundsNumber = preferences.getInt(Key.ROUNDS_NUMBER, 0);
+    }
+
+    private List<Integer> getRoundRestTimes(){
+        List<Integer> rests = new ArrayList<>();
+        boolean restsSame = preferences.getBoolean(Key.RESTS_SAME, true);
+        if (restsSame){
+            int rest = preferences.getInt(Key.ROUNDS_REST_TIME, 0) * 1000;
+            for (int i = 0; i < roundsNumber - 1; i++)
+                rests.add(rest);
+        }
+        else {
+            for (int i = 1; i <= roundsNumber - 1; i++){
+                rests.add(preferences.getInt(Key.ROUNDS_REST_TIME + i, 0) * 1000);
+            }
+        }
+        return rests;
+    }
+
+    private String getTimeString(long s){
+        long min = s / 60;
+        if (min == 0)
+            return s + " s";
+        else
+            return min + " min " + (s % 60) + " s";
     }
 
     private void setRoundVisibility(int visibility){
@@ -100,39 +124,28 @@ public class TimeActivity extends AppCompatActivity{
         exerciseDisplay.setVisibility(visibility);
     }
 
-    private void setFinishedButton(){
-        String oneMoreTimeColor = "#FF9800";
-        timeButton.setBackgroundColor(Color.parseColor(oneMoreTimeColor));
-        timeButton.setText(R.string.again);
-    }
-
-    private List<Integer> getRoundRestTimes(){
-        List<Integer> rests = new ArrayList<>();
-        boolean restsSame = sharedPreferences.getBoolean(Key.RESTS_SAME, true);
-        if (restsSame){
-            int rest = sharedPreferences.getInt(Key.ROUNDS_REST_TIME, 0) * 1000;
-            for (int i = 0; i < roundsNumber - 1; i++)
-                rests.add(rest);
-        }
-        else {
-            for (int i = 1; i <= roundsNumber - 1; i++){
-                rests.add(sharedPreferences.getInt(Key.ROUNDS_REST_TIME + i, 0) * 1000);
-            }
-        }
-        return rests;
-    }
-
     private void pauseCountdown(){
         currentCountDown.cancel();
-        currentCountDown = makeTimer((int)remain, currentCountDownId);
+        currentCountDown = makeTimer((int) timeRemaining, currentCountDownId);
     }
 
-    private String getTimeString(long s){
-        long min = s / 60;
-        if (min == 0)
-            return s + " s";
-        else
-            return min + " min " + (s % 60) + " s";
+    @SuppressLint("ResourceAsColor")
+    public void handleTimeButtonClick(View v){
+        switch (buttonState){
+            case RESUME:
+                buttonState = ButtonState.PAUSE;
+                timeButton.setText(R.string.pause);
+                timeButton.setBackgroundColor(R.color.pause);
+                currentCountDown.start();
+                break;
+            case PAUSE:
+                buttonState = ButtonState.RESUME;
+                timeButton.setText(R.string.resume);
+                timeButton.setBackgroundColor(R.color.resume);
+                pauseCountdown();
+            case ONE_MORE_TIME:
+                startActivity(new Intent(this, RoundNumberActivity.class));
+        }
     }
 
     private CountDownTimer makeTimer(int millisInFuture, int id) {
@@ -141,24 +154,20 @@ public class TimeActivity extends AppCompatActivity{
             public void onTick(long l) {
                 currentCountDown = this;
                 currentCountDownId = id;
-                if (id == 0)  // delay before training starts
+                if (id == 0)            // delay before training starts
                     remainingTextView.setText(R.string.before_training);
-                else if (id % 2 == 1) // if exercise
+                else if (id % 2 == 1)   // if exercise
                     remainingTextView.setText(R.string.exercise_remain);
                 else
                     remainingTextView.setText(R.string.rest_remain);
 
                 remainingDisplay.setText(getTimeString(l / 1000));
-                remain = l;
+                timeRemaining = l;
             }
             @Override
             public void onFinish() {
                 if (id == timesSize - 1){ // if the last one
-                    setRoundVisibility(View.INVISIBLE);
-                    remainingTextView.setText(R.string.finish);
-                    remainingDisplay.setText("");
-                    setFinishedButton();
-                    stopAndBackButton.setVisibility(View.INVISIBLE);
+                    setUpFinishScreen();
                 }
                 if (id % 2 == 1)  // if exercise
                     stopExerciseMusic.start();
@@ -169,25 +178,19 @@ public class TimeActivity extends AppCompatActivity{
         };
     }
 
-    public void handleTimeButtonClick(View v){
-        String pauseColor = "#FF5722";
-        String resumeColor = "#8BC34A";
+    private void setUpFinishScreen(){
+        setRoundVisibility(View.INVISIBLE);
+        remainingTextView.setText(R.string.finish);
+        remainingDisplay.setText("");
+        setUpFinishButton();
+        stopAndBackButton.setVisibility(View.INVISIBLE);
+    }
 
-        String value = timeButton.getText().toString();
-
-        if (value.equals(getString(R.string.resume))){
-            timeButton.setText(R.string.pause);
-            timeButton.setBackgroundColor(Color.parseColor(pauseColor));
-            currentCountDown.start();
-        }
-        else if (value.equals(getString(R.string.pause))){
-            timeButton.setText(R.string.resume);
-            timeButton.setBackgroundColor(Color.parseColor(resumeColor));
-            pauseCountdown();
-        }
-        else if(value.equals(getString(R.string.again))){
-            startActivity(new Intent(this, RoundNumberActivity.class));
-        }
+    @SuppressLint("ResourceAsColor")
+    private void setUpFinishButton(){
+        buttonState = ButtonState.ONE_MORE_TIME;
+        timeButton.setBackgroundColor(R.color.one_more_time);
+        timeButton.setText(R.string.again);
     }
 
     public void back(View v){
@@ -200,10 +203,10 @@ public class TimeActivity extends AppCompatActivity{
 
         @Override
         public void fillTimes() {
-            setRoundsNumber();
-            setExerciseNumber();
-            int exerciseTime = sharedPreferences.getInt(Key.EXERCISE_TIME, 0) *  1000;
-            int exerciseRestTime = sharedPreferences.getInt(Key.EXERCISES_REST_TIME, 0) *  1000;
+            setUpRoundsNumber();
+            setUpExerciseNumber();
+            int exerciseTime = preferences.getInt(Key.EXERCISE_TIME, 0) *  1000;
+            int exerciseRestTime = preferences.getInt(Key.EXERCISES_REST_TIME, 0) *  1000;
 
             List<Integer> roundRestTimes = getRoundRestTimes();
 
@@ -219,17 +222,16 @@ public class TimeActivity extends AppCompatActivity{
             }
 
             timesSize = times.size();
-            startTimer(0);
         }
 
-        private void setExerciseNumber(){
-            exerciseNumber = sharedPreferences.getInt(Key.EXERCISES_NUMBER, 0);
+        private void setUpExerciseNumber(){
+            exerciseNumber = preferences.getInt(Key.EXERCISES_NUMBER, 0);
         }
 
         @Override
         public void startTimer(int id) {
             if (id >= timesSize) return;
-            else if (id == 0) // delay before training starts
+            else if (id == 0)                           // delay before training starts
                 setRoundVisibility(View.INVISIBLE);
             else if (id % (2 * exerciseNumber) == 0) { // if round rest
                 setRoundVisibility(View.INVISIBLE);
@@ -237,7 +239,7 @@ public class TimeActivity extends AppCompatActivity{
             else{
                 setRoundVisibility(View.VISIBLE);
                 roundDisplay.setText(String.valueOf(id / (2 * exerciseNumber) + 1));
-                if (id % 2 == 1) {  // if exercise
+                if (id % 2 == 1) {                      // if exercise
                     setExerciseVisibility(View.VISIBLE);
                     exerciseDisplay.setText(String.valueOf((id % (2 * exerciseNumber)) / 2 + 1));
                 }
@@ -256,8 +258,8 @@ public class TimeActivity extends AppCompatActivity{
 
         @Override
         public void fillTimes() {
-            setRoundsNumber();
-            setExerciseNumbers();
+            setUpRoundsNumber();
+            setUpExerciseNumbers();
             List<Integer> exerciseTimes = getTimes(Key.EXERCISE_TIME);
             List<Integer> exerciseRestTimes = getTimes(Key.EXERCISES_REST_TIME);
             List<Integer> roundRestTimes = getRoundRestTimes();
@@ -281,27 +283,26 @@ public class TimeActivity extends AppCompatActivity{
             currentExerciseNumber = 1;
             currentRoundNumber = 1;
             timesSize = times.size();
-            startTimer(0);
         }
 
-        private void setExerciseNumbers(){
+        private void setUpExerciseNumbers(){
             for (int i = 1; i <= roundsNumber; i++)
-                exerciseNumbers.add(sharedPreferences.getInt(Key.EXERCISES_NUMBER + i, 0));
+                exerciseNumbers.add(preferences.getInt(Key.EXERCISES_NUMBER + i, 0));
         }
 
         private List<Integer> getTimes(String key){
             List<Integer> times = new ArrayList<>();
             for (int i = 1; i <= roundsNumber; i++)
-                times.add(sharedPreferences.getInt(key + i, 0) * 1000);
+                times.add(preferences.getInt(key + i, 0) * 1000);
             return times;
         }
 
         @Override
         public void startTimer(int id) {
             if (id >= timesSize) return;
-            else if (id == 0) // delay before training starts
+            else if (id == 0)                       // delay before training starts
                 setRoundVisibility(View.INVISIBLE);
-            else if (roundRestsIds.contains(id)) { // if round rest
+            else if (roundRestsIds.contains(id)) {  // if round rest
                 setRoundVisibility(View.INVISIBLE);
                 currentRoundNumber++;
                 currentExerciseNumber = 1;
@@ -309,7 +310,7 @@ public class TimeActivity extends AppCompatActivity{
             else{
                 setRoundVisibility(View.VISIBLE);
                 roundDisplay.setText(String.valueOf(currentRoundNumber));
-                if (id % 2 == 1) {  // if exercise
+                if (id % 2 == 1) {                    // if exercise
                     setExerciseVisibility(View.VISIBLE);
                     exerciseDisplay.setText(String.valueOf(currentExerciseNumber));
                 }
@@ -320,6 +321,5 @@ public class TimeActivity extends AppCompatActivity{
             }
             makeTimer(times.get(id), id).start();
         }
-
     }
 }

@@ -12,7 +12,7 @@
         android:id="@+id/rounds_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".RoundNumberActivity">
+        tools:context=".mainActivities.RoundNumberActivity">
 
         <TextView
             android:id="@+id/textRoundsNumber"

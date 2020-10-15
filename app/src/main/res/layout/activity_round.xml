@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".RoundActivity">
+            tools:context=".mainActivities.RoundActivity">
 
         <NumberPicker
                 android:id="@+id/exercisesNumberPicker"
@@ -162,18 +162,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7"/>
 
         <Button
-                android:id="@+id/buttonRoundBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                android:onClick="back"
-                android:text="@string/back"
-                app:backgroundTint="#F44336"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="40dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+            android:id="@+id/buttonRoundBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="back"
+            android:text="@string/back"
+            app:backgroundTint="#F44336"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
                 android:id="@+id/roundNumberTextView"
