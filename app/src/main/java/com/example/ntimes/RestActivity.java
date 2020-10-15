@@ -137,7 +137,4 @@ public class RestActivity extends AppCompatActivity {
         restText.setVisibility(visibility);
         restDisplay.setVisibility(visibility);
     }
-
-
-
 }

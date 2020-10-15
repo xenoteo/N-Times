@@ -1,5 +1,5 @@
 <resources>
-    <!--    general buttons-->
+    <!--    buttons-->
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="edit">Edit</string>
@@ -7,6 +7,10 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="stop">Stop &amp; back</string>
+
+    <!--    number picker time strings-->
+    <string name="min">min</string>
+    <string name="sec">sec</string>
 
     <!--    main activity-->
     <string name="app_name">N Times</string>
@@ -19,27 +23,9 @@
     <string name="exercises_time">Time of one exercise</string>
     <string name="rest_time">Rest between exercises</string>
 
-    <!--    number picker time strings-->
-    <string name="min">min</string>
-    <string name="sec">sec</string>
-
     <!--    rest activity-->
     <string name="round_rest_tim">Rest between rounds</string>
     <string name="rest">Rest</string>
-
-    <!--    check activity-->
-    <string name="choice">You picked</string>
-    <string name="rounds">rounds, with</string>
-    <string name="exercises">exercises</string>
-    <string name="exercise_lasts">Exercise times are</string>
-    <string name="rest_between_exercises">Rests between exercises are</string>
-    <string name="rest_between_rounds">Rests between rounds are</string>
-
-    <string name="round_no">Round <br />no</string>
-    <string name="number_of_exercises">Number of <br />exercises</string>
-    <string name="exercise_time">Exercise <br />time</string>
-    <string name="rest_time_check">Rest <br />time</string>
-    <string name="rest_after_round">Rest <br />after round</string>
 
     <!--    timer-->
     <string name="round">Round</string>
