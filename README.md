@@ -13,7 +13,7 @@ You can even have different timing in different rounds. For example you can star
 One customization solves all time problems.
 
 ## Installation 
-You can download APK file [here](https://github.com/xenoteo/N-Times/blob/master/app/out/app-debug.apk).
+You can download APK file [here](https://github.com/xenoteo/N-Times/blob/master/app/out/ntimes.apk).
   
 ## Features
 You can customize a training according to the next points:
