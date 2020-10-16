@@ -1,11 +1,11 @@
-package com.example.ntimes.abstractActivities;
+package xenoteo.com.github.ntimes.abstractActivities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ntimes.Key;
+import xenoteo.com.github.ntimes.Key;
 
 public abstract class ActivityWithPreferences extends AppCompatActivity {
     protected SharedPreferences preferences;

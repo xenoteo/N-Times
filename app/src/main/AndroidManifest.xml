@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ntimes">
+    package="com.github.ntimes">
 
     <application
         android:allowBackup="true"
@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NTimes">
-        <activity android:name=".mainActivities.timeActivity.TimeActivity" />
-        <activity android:name=".mainActivities.CheckActivity" />
-        <activity android:name=".mainActivities.RestActivity" />
-        <activity android:name=".mainActivities.RoundActivity" />
-        <activity android:name=".mainActivities.RoundNumberActivity">
+        <activity android:name="xenoteo.com.github.ntimes.mainActivities.timeActivity.TimeActivity" />
+        <activity android:name="xenoteo.com.github.ntimes.mainActivities.CheckActivity" />
+        <activity android:name="xenoteo.com.github.ntimes.mainActivities.RestActivity" />
+        <activity android:name="xenoteo.com.github.ntimes.mainActivities.RoundActivity" />
+        <activity android:name="xenoteo.com.github.ntimes.mainActivities.RoundNumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.ntimes.mainActivities.timeActivity;
+package xenoteo.com.github.ntimes.mainActivities.timeActivity;
 
 public enum TimeButtonState {
     RESUME,

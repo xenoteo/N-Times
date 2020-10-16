@@ -1,4 +1,4 @@
-package com.example.ntimes;
+package xenoteo.com.github.ntimes;
 
 /**
  * Public class to store string keys for the values stored in intents.

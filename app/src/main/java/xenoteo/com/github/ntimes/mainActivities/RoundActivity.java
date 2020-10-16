@@ -1,4 +1,4 @@
-package com.example.ntimes.mainActivities;
+package xenoteo.com.github.ntimes.mainActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.example.ntimes.abstractActivities.ActivitySettingUpBasicDataFromPreferences;
-import com.example.ntimes.Key;
-import com.example.ntimes.R;
+import xenoteo.com.github.ntimes.abstractActivities.ActivitySettingUpBasicDataFromPreferences;
+import xenoteo.com.github.ntimes.Key;
+import com.github.ntimes.R;
 
 public class RoundActivity extends ActivitySettingUpBasicDataFromPreferences {
 

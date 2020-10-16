@@ -12,7 +12,7 @@
         android:id="@+id/rounds_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".mainActivities.RoundNumberActivity">
+        tools:context="xenoteo.com.github.ntimes.mainActivities.RoundNumberActivity">
 
         <TextView
             android:id="@+id/textRoundsNumber"

@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.example.ntimes"
+        applicationId "xenoteo.com.github.ntimes"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

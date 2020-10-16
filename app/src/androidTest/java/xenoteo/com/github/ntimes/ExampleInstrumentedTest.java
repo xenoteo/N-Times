@@ -1,4 +1,4 @@
-package com.example.ntimes;
+package xenoteo.com.github.ntimes;
 
 import android.content.Context;
 

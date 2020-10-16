@@ -1,6 +1,6 @@
-package com.example.ntimes.abstractActivities;
+package xenoteo.com.github.ntimes.abstractActivities;
 
-import com.example.ntimes.Key;
+import xenoteo.com.github.ntimes.Key;
 
 public abstract class ActivitySettingUpBasicDataFromPreferences extends ActivityWithPreferences {
     protected boolean roundsSame;

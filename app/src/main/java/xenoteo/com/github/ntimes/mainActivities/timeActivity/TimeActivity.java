@@ -1,4 +1,4 @@
-package com.example.ntimes.mainActivities.timeActivity;
+package xenoteo.com.github.ntimes.mainActivities.timeActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ntimes.abstractActivities.ActivityWithPreferences;
-import com.example.ntimes.Key;
-import com.example.ntimes.R;
-import com.example.ntimes.mainActivities.RoundNumberActivity;
+import xenoteo.com.github.ntimes.abstractActivities.ActivityWithPreferences;
+import xenoteo.com.github.ntimes.Key;
+import com.github.ntimes.R;
+import xenoteo.com.github.ntimes.mainActivities.RoundNumberActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,10 +136,10 @@ public class TimeActivity extends ActivityWithPreferences {
         stopAndBackButton.setVisibility(View.INVISIBLE);
     }
 
-    @SuppressLint("ResourceAsColor")
+
     private void setUpFinishButton(){
         buttonState = TimeButtonState.ONE_MORE_TIME;
-        timeButton.setBackgroundColor(R.color.one_more_time);
+        timeButton.setBackgroundColor(getResources().getColor(R.color.one_more_time));
         timeButton.setText(R.string.again);
     }
 
@@ -173,20 +173,20 @@ public class TimeActivity extends ActivityWithPreferences {
         };
     }
 
-    @SuppressLint("ResourceAsColor")
     public void handleTimeButtonClick(View v){
         switch (buttonState){
             case RESUME:
                 buttonState = TimeButtonState.PAUSE;
                 timeButton.setText(R.string.pause);
-                timeButton.setBackgroundColor(R.color.pause);
+                timeButton.setBackgroundColor(getResources().getColor(R.color.pause));
                 currentCountDown.start();
                 break;
             case PAUSE:
                 buttonState = TimeButtonState.RESUME;
                 timeButton.setText(R.string.resume);
-                timeButton.setBackgroundColor(R.color.resume);
+                timeButton.setBackgroundColor(getResources().getColor(R.color.resume));
                 pauseCountdown();
+                break;
             case ONE_MORE_TIME:
                 startActivity(new Intent(this, RoundNumberActivity.class));
         }

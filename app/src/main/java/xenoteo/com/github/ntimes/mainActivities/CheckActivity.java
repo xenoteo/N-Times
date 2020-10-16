@@ -1,4 +1,4 @@
-package com.example.ntimes.mainActivities;
+package xenoteo.com.github.ntimes.mainActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.ntimes.R;
-import com.example.ntimes.mainActivities.timeActivity.TimeActivity;
+import com.github.ntimes.R;
+import xenoteo.com.github.ntimes.mainActivities.timeActivity.TimeActivity;
 
 public class CheckActivity extends AppCompatActivity {
 

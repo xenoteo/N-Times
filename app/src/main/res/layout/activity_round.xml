@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".mainActivities.RoundActivity">
+            tools:context="xenoteo.com.github.ntimes.mainActivities.RoundActivity">
 
         <NumberPicker
                 android:id="@+id/exercisesNumberPicker"
