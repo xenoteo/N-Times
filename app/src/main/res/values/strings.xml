@@ -7,6 +7,8 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="stop">Stop &amp; back</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
     <!--    number picker time strings-->
     <string name="min">min</string>
@@ -36,4 +38,8 @@
     <string name="finish">Good job!</string>
     <string name="again">One more time</string>
     <string name="default_num">0</string>
+
+    <!--    stop training alert-->
+    <string name="stop_training_alert">Do you want to stop training?</string>
+
 </resources>

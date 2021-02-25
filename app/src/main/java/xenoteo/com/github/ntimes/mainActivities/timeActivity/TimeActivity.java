@@ -1,6 +1,6 @@
 package xenoteo.com.github.ntimes.mainActivities.timeActivity;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -189,12 +189,34 @@ public class TimeActivity extends ActivityWithPreferences {
                 break;
             case ONE_MORE_TIME:
                 startActivity(new Intent(this, RoundNumberActivity.class));
+                buttonState = TimeButtonState.PAUSE;
         }
     }
 
     public void back(View v){
         pauseCountdown();
-        super.onBackPressed();
+        createStopTrainingAlert().show();
+    }
+
+    private AlertDialog createStopTrainingAlert(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage(R.string.stop_training_alert)
+                .setCancelable(false)
+                .setNegativeButton(R.string.yes, (dialog, id) -> onBackPressed())
+                .setPositiveButton(R.string.cancel, (dialog, id) -> currentCountDown.start())
+                .create();
+
+        alertDialog.setOnShowListener(arg0 -> {
+            Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            negativeButton.setBackgroundColor(getResources().getColor(R.color.white));
+            negativeButton.setTextColor(getResources().getColor(R.color.yes));
+            negativeButton.setLeft(View.FOCUS_LEFT);
+
+            Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            positiveButton.setBackgroundColor(getResources().getColor(R.color.white));
+            positiveButton.setTextColor(getResources().getColor(R.color.resume));
+        });
+        return alertDialog;
     }
 
 

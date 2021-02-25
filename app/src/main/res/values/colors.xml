@@ -12,4 +12,5 @@
     <color name="one_more_time">#FF9800</color>
     <color name="pause">#FF5722</color>
     <color name="resume">#8BC34A</color>
+    <color name="yes">#F44336</color>
 </resources>
